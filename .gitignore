@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.vercel/
+.env
+.env*.local
+coverage/
+supabase/.temp/
+.DS_Store
+
+# Pinned third-party contract files are source (overrides a global vendor/ ignore)
+!vendor/
+
+# External monitor state (incident IDs, no customer data)
+.monitor-state/
+*.tsbuildinfo
+__pycache__/
+*.pyc

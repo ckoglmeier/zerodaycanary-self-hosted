@@ -1,0 +1,18 @@
+import Link from 'next/link';
+import {listSources,sourceCount} from '@/lib/source-feed';
+import {allAdvisories} from '@/lib/catalog';
+import {sourceQuery} from '@/lib/source-api';
+import {publicMetadata} from '@/lib/discovery';
+import {abs} from '@/components/time';
+export const revalidate=300;
+export const metadata=publicMetadata('/advisories/feed','Full vulnerability feed','Browse the full imported vulnerability feed. Source records are separate from Canary-reviewed priority alerts; review status and coverage gaps are explicit.');
+export default async function FullFeed({searchParams}:{searchParams:Promise<{q?:string;cursor?:string}>}){
+ const sp=await searchParams,q=typeof sp.q==='string'?sp.q.trim().slice(0,200):'',url=new URL('https://www.zerodaycanary.com/api/v1/vulnerabilities');url.searchParams.set('limit','50');
+ if(q)url.searchParams.set(/^(?:CVE-|GHSA-)/i.test(q)?'identifier':'product',q);
+ if(sp.cursor)url.searchParams.set('cursor',sp.cursor);
+ let page;
+ try{page=await listSources(sourceQuery(url));}catch{return <section className="stack prose"><h1 className="h-page">Full vulnerability feed</h1><p>The page link is invalid or its filters changed.</p><Link href="/advisories/feed">Start again</Link></section>;}
+ const [total,reviewed]=await Promise.all([sourceCount(page.feed_revision),allAdvisories({includeInactive:true})]);
+ const next=new URLSearchParams();if(q)next.set('q',q);if(page.next_cursor)next.set('cursor',page.next_cursor);
+ return <div className="stack"><section className="stack prose"><h1 className="h-page">Full vulnerability feed</h1><p>{total.toLocaleString()} source records · <Link href="/advisories/all">{reviewed.length} reviewed alerts</Link></p><p>All imported records, including the long tail. These are source-supplied claims; affected versions and exploitation have not been independently verified. For the important reviewed issues, start with <Link href="/advisories">Priority alerts</Link>.</p><p className="small muted">Feed revision {page.feed_revision}{page.sync_until?` · Updated ${abs(page.sync_until)}`:''} · <Link href="/docs/api">Use the free API</Link></p></section><nav className="filters" aria-label="Alert views"><Link className="filter" href="/advisories">Priority alerts</Link><Link className="filter" href="/advisories/all">All reviewed alerts</Link><Link className="filter" href="/advisories/feed" aria-current="page">Full feed ({total.toLocaleString()})</Link></nav><form method="get" className="row"><div style={{flex:1,maxWidth:520}}><label htmlFor="source-search">Product or full CVE / GHSA identifier</label><input id="source-search" type="search" name="q" defaultValue={q} maxLength={200}/></div><button className="btn btn-secondary" type="submit">Search</button>{q?<Link href="/advisories/feed">Clear</Link>:null}</form>{page.data.length?<ul className="list">{page.data.map(r=><li key={r.id} className="stack print-item wrap"><p className="small muted">Source record · Not independently reviewed</p><h2 className="h-subsection">{r.source.vendor_product||r.source.id}</h2><p className="mono small">{r.identifiers.join(' · ')}</p><p>{r.source.description||'No description supplied.'}</p><p className="small">Source severity: {r.severity}{r.cvss_score!==null?` (${r.cvss_score})`:''} · Exploitation unverified</p><p className="small"><a href={r.source.link}>Read original source</a></p></li>)}</ul>:<p>No source records match this search. That does not establish that no vulnerability exists.</p>}{page.next_cursor?<div><Link className="btn btn-secondary" href={'/advisories/feed?'+next}>Next 50 records →</Link></div>:null}<p className="small muted">Source records are separate from automatic package matching and are not promoted to reviewed alerts merely by import.</p></div>;
+}

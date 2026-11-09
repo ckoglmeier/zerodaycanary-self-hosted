@@ -1,0 +1,54 @@
+{
+  "catalog_revision": 1,
+  "matches": [
+    {
+      "advisory_id": "synthetic-next-001",
+      "advisory_revision": 1,
+      "advisory_stale": true,
+      "basis": "developer_supplied",
+      "component": {
+        "development": null,
+        "ecosystem": "npm",
+        "instance": 5,
+        "name": "next",
+        "optional": null,
+        "purl": "pkg:npm/next@16.0.0",
+        "relationship": "direct",
+        "source_id": "inventory-1",
+        "version": "16.0.0"
+      },
+      "conditions": [
+        {
+          "description": "Synthetic deployment prerequisite",
+          "state": "unknown"
+        }
+      ],
+      "identifiers": [
+        "SYNTHETIC-001"
+      ],
+      "reason": "Supplied version falls in an affected range. Deployment and prerequisites are unverified.",
+      "status": "affected_version_matched"
+    }
+  ],
+  "notice": "No matching advisory means only no match in this snapshot and adapter coverage; source-audit verdicts and deployed verification are separate.",
+  "snapshot_schema_version": "2026-10-22",
+  "unmapped_packages": [
+    {
+      "ecosystem": "npm",
+      "name": "@synthetic/widget"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fixture-child"
+    },
+    {
+      "ecosystem": "npm",
+      "name": "fixture-tool"
+    }
+  ],
+  "warnings": [
+    "Snapshot retrieval time and completeness are supplied by the caller; no network synchronization was performed.",
+    "Only npm next maps to the current app nextjs product key. Other ecosystems/products remain unassessed.",
+    "No deployment facts are supplied; prerequisite states remain unknown and fix_verified is never emitted."
+  ]
+}

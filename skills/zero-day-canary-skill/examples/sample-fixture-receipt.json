@@ -1,0 +1,11 @@
+{
+  "notice": "LOCAL CONTRACT FIXTURE ONLY; hosted monitoring is not implemented here.",
+  "receipt": {
+    "billing_mode": "developer_inventory_free",
+    "bundle_sha256": "0ddb96a05af2b746ca3830bbe44a9d69e0a1fba9ea06aad257553dbf9e343d4c",
+    "evidence_id": "0ddb96a05af2b746ca3830bbe44a9d69e0a1fba9ea06aad257553dbf9e343d4c",
+    "monitoring_state": "integration_fixture_only",
+    "project_id": "project-a",
+    "schema_version": "canary-receipt/1"
+  }
+}

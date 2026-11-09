@@ -1,0 +1,14 @@
+import Link from 'next/link';
+import { publicMetadata } from '@/lib/discovery';
+export const metadata = publicMetadata('/for-buyers', 'Vulnerability monitoring for local businesses and nonprofits', 'Check possible exposure in your websites and apps, get answers from your developer, and track what needs fixing.');
+export default function Buyers() {
+  return <article className="stack prose" style={{ maxWidth: 800 }}>
+    <p className="landing-eyebrow">For local businesses, nonprofits, and the people who manage their software</p>
+    <h1 className="h-page">A new vulnerability. Which of your apps might be affected?</h1>
+    <p>Small teams often rely on a web agency, a vendor, or a volunteer developer to maintain their software. Zero Day Canary brings vulnerability alerts and your systems into one place. Start with what is publicly visible, then ask the person who runs the app to confirm what is actually installed and exposed.</p>
+    <ol className="stack"><li><strong>Add an app by URL.</strong> Canary checks public signals against supported reviewed alerts. A hidden version or login wall stays unknown; the public website is not the whole application.</li><li><strong>Ask a specific question.</strong> Send a tracked request with the detected technology, relevant alert and evidence needed. You supply the developer’s contact address. Replies and updates stay with the request.</li><li><strong>Keep the answer with the evidence.</strong> The developer can explain why the app is unaffected or share a deeper source report. If affected, ask for a fix plan and target date, or a note that the date is being determined. Developer declarations and source checks stay distinct from deployed verification.</li><li><strong>Keep watching.</strong> Paid buyer monitoring checks the systems you choose as reviewed alerts change. A new possible match calls for a specific check, rather than a blanket claim that the app is vulnerable.</li></ol>
+    <p>You can read a report shared directly with you for free. <Link href="/pricing">Your first system is free; Team covers up to 25</Link>; free developer monitoring covers supported dependencies in uploaded reports.</p>
+    <div className="row"><Link href="/systems" className="btn btn-brand">Check my systems</Link><Link href="/for-education">Managing a college’s apps?</Link></div>
+    <h2 className="h-section">What can a public check prove?</h2><p>Public fingerprints are clues. They cannot establish hidden packages, authenticated features, the deployed build or overall safety. The <Link href="/docs/skill">local Canary skill</Link> adds component versions and advisory-specific source evidence. Known open-source packages are checked across supported OSV ecosystems; runtime and vendor CVEs need suitable evidence. Missing facts remain unknown. <Link href="/about">See coverage and sources</Link>.</p>
+  </article>;
+}

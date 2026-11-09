@@ -1,0 +1,13 @@
+{
+  "source": "Verified companion builder distribution, 2026-10-22",
+  "zip_sha256": "b3478b2bb26129070ed4b583e51dffc9194eb7d055c62b53fe8776baef99dd43",
+  "sha256": "51494f1810596d10c343a77478b9597ecf5a46762c5f25e2a6c9c567075cec6e",
+  "zip_bytes": 106484,
+  "bytes": 81106,
+  "files": 43,
+  "upstream_revision": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+  "upstream_files_unchanged": true,
+  "skill_count": 1,
+  "workflow": "known_cve_targets_only",
+  "license": "MIT; third-party notices retained"
+}

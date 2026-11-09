@@ -1,0 +1,456 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "canary-evidence/2"
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20,
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+    },
+    "repository": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,199}$"
+        },
+        "commit": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-f0-9]{40,64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dirty": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "basis": {
+          "const": "developer_supplied"
+        }
+      },
+      "required": [
+        "id",
+        "commit",
+        "dirty",
+        "basis"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      },
+      "maxItems": 100
+    },
+    "deployment": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "identity": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "basis": {
+              "const": "developer_supplied_unverified"
+            }
+          },
+          "required": [
+            "identity",
+            "version",
+            "basis"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "object",
+          "properties": {
+            "upstream_revision": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-f0-9]{40,64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_commit": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 64,
+                  "pattern": "^[a-f0-9]{40,64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "source_dirty": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "audited_at": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 20,
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "scope": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512
+              },
+              "maxItems": 100
+            },
+            "run_status": {
+              "enum": [
+                "completed",
+                "incomplete",
+                "unknown"
+              ]
+            }
+          },
+          "required": [
+            "upstream_revision",
+            "source_commit",
+            "source_dirty",
+            "audited_at",
+            "scope",
+            "run_status"
+          ],
+          "additionalProperties": false
+        },
+        "compatibility_revision": {
+          "const": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8"
+        },
+        "schema_sha256": {
+          "const": "6575c9de4a62255699ea052ebf9a49ebfb373a32891bcd89af6f55cc84b35519"
+        },
+        "report_sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_records": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        },
+        "verdict_counts": {
+          "type": "object",
+          "properties": {
+            "confirmed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            },
+            "needs_validation": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            },
+            "rejected": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            }
+          },
+          "required": [
+            "confirmed",
+            "needs_validation",
+            "rejected"
+          ],
+          "additionalProperties": false
+        },
+        "selected_findings": {
+          "allOf": [
+            {
+              "$ref": "../vendor/cloudflare/security-audit/report-schema.json"
+            },
+            {
+              "maxItems": 1000
+            }
+          ]
+        }
+      },
+      "required": [
+        "context",
+        "compatibility_revision",
+        "schema_sha256",
+        "report_sha256",
+        "total_records",
+        "verdict_counts",
+        "selected_findings"
+      ],
+      "additionalProperties": false
+    },
+    "inventory": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "enum": [
+            "component-inventory",
+            "missing",
+            "unsupported"
+          ]
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ecosystem": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._:+/-]*$"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512,
+                "pattern": "^[^\\x00-\\x1f\\x7f]+$"
+              },
+              "version": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._+!~:-]*$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "purl": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "maxLength": 1024,
+                    "pattern": "^pkg:"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "relationship": {
+                "enum": [
+                  "direct",
+                  "transitive",
+                  "unknown"
+                ]
+              },
+              "development": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "optional": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 30,
+                "pattern": "^inventory-[1-9][0-9]*$"
+              },
+              "instance": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "public_registry": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "ecosystem",
+              "name",
+              "version",
+              "purl",
+              "relationship",
+              "development",
+              "optional",
+              "source_id",
+              "instance",
+              "public_registry"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 20000
+        },
+        "unknowns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "reason": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "entry": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "reason",
+              "entry"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 20000
+        }
+      },
+      "required": [
+        "format",
+        "components",
+        "unknowns"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 30,
+            "pattern": "^(inventory|audit|context)-[1-9][0-9]*$"
+          },
+          "kind": {
+            "enum": [
+              "component_inventory",
+              "unsupported_inventory",
+              "audit_findings"
+            ]
+          },
+          "sha256": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "sha256"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 101
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      },
+      "maxItems": 30
+    }
+  },
+  "required": [
+    "schema_version",
+    "created_at",
+    "repository",
+    "scope",
+    "deployment",
+    "audit",
+    "inventory",
+    "sources",
+    "limitations"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zerodaycanary.com/schemas/canary-evidence-v2.json"
+}

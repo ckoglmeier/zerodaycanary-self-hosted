@@ -1,0 +1,24 @@
+{
+  "added_or_changed": [
+    {
+      "ecosystem": "npm",
+      "instances": 1,
+      "name": "next",
+      "relationship": "direct",
+      "version": "16.0.2"
+    }
+  ],
+  "notice": "Removed components and absent selected findings do not prove remediation. Refresh audit as requested; deployed-system verification was not performed.",
+  "removed_or_changed": [
+    {
+      "ecosystem": "npm",
+      "instances": 1,
+      "name": "next",
+      "relationship": "direct",
+      "version": "16.0.0"
+    }
+  ],
+  "selected_verdict_changes": [],
+  "unknowns_after": [],
+  "unknowns_before": []
+}

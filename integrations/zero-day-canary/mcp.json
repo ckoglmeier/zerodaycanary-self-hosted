@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "zero-day-canary": {
+      "type": "streamable-http",
+      "url": "https://canary.example.org/api/mcp"
+    }
+  }
+}

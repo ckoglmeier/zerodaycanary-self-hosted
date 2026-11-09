@@ -1,0 +1,8 @@
+{
+  "upstream_revision": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+  "source_commit": "1111111111111111111111111111111111111111",
+  "source_dirty": false,
+  "audited_at": "2026-10-01T12:00:00Z",
+  "scope": ["src"],
+  "run_status": "incomplete"
+}

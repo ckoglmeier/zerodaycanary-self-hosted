@@ -1,0 +1,62 @@
+{
+  "schema_version": "2026-10-22",
+  "catalog_revision": 1,
+  "data": [
+    {
+      "id": "synthetic-next-001",
+      "schema_version": "2026-10-22",
+      "revision": 1,
+      "catalog_revision": 1,
+      "status": "published",
+      "title": "Synthetic version-range exercise",
+      "product": "Next.js",
+      "summary": "Synthetic test only. Not a real advisory.",
+      "identifiers": [
+        "SYNTHETIC-001"
+      ],
+      "severity": "unknown",
+      "cvss_score": null,
+      "severity_source": null,
+      "exploitation": {
+        "category": "none_confirmed",
+        "source_url": null,
+        "as_of": null
+      },
+      "affected": [
+        {
+          "product": "nextjs",
+          "ranges": [
+            {
+              "introduced": "16.0.0",
+              "fixed": "16.0.2",
+              "last_affected": null,
+              "ambiguous": false
+            }
+          ],
+          "other_branches": "unknown"
+        }
+      ],
+      "conditions": [
+        {
+          "description": "Synthetic deployment prerequisite",
+          "fact": "nextjs.app_router"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://example.invalid/synthetic",
+          "kind": "other"
+        }
+      ],
+      "published_at": "2026-10-01T00:00:00Z",
+      "reviewed_at": "2026-10-01T12:00:00Z",
+      "updated_at": "2026-10-01T12:00:00Z",
+      "status_note": null,
+      "uncertainty": [
+        "Synthetic fixture; no real vulnerability assertion."
+      ]
+    }
+  ],
+  "next_cursor": null,
+  "next": null
+}

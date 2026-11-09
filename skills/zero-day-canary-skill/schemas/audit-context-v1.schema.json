@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "properties": {
+    "upstream_revision": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-f0-9]{40,64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_commit": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-f0-9]{40,64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_dirty": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "audited_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20,
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512
+      },
+      "maxItems": 100
+    },
+    "run_status": {
+      "enum": [
+        "completed",
+        "incomplete",
+        "unknown"
+      ]
+    }
+  },
+  "required": [
+    "upstream_revision",
+    "source_commit",
+    "source_dirty",
+    "audited_at",
+    "scope",
+    "run_status"
+  ],
+  "additionalProperties": false
+}

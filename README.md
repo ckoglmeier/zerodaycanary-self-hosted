@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/brand/canary-logo.png" alt="Zero Day Canary — yellow canary mascot" width="200">
+</p>
+
 # Zero Day Canary — self-hosted reference
 
 **Unmaintained. The original hosted service is retired.** This is a source snapshot, released November 9, 2026, for people who want to run or adapt it themselves. There are no promised updates, support, hosted API, or vulnerability-feed maintenance. Fork it if you want to continue development.
